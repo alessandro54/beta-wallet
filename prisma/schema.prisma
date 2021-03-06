@@ -7,15 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  authorId  Int?
-  author    User?   @relation(fields: [authorId], references: [id])
-}
-
 enum Role {
   Common
   Admin
@@ -31,7 +22,6 @@ model User {
   wallet        Wallet?
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
-  posts         Post[]
 
   @@map("users")
 }
@@ -67,8 +57,6 @@ model Wallet {
 
   @@map("wallets")
 }
-
-
 
 model Account {
   id                 Int       @id @default(autoincrement())

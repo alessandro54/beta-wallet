@@ -1,9 +1,10 @@
 import React from "react";
 import { GetStaticProps } from "next";
-import Layout from "../../components/Layout";
+import { serialize } from "superjson";
+import { useSession, getSession } from "next-auth/client"
 import prisma from "../../lib/prisma";
-import Transaction, {TransactionProps} from "../../components/Transaction";
-import { serialize} from "superjson";
+import Layout from "../../components/Layout";
+import Transaction, { TransactionProps } from "../../components/Transaction";
 
 export const getStaticProps: GetStaticProps = async () => {
     const response = await prisma.transaction.findMany(
@@ -29,6 +30,11 @@ type Props = {
     transactions: TransactionProps[];
 }
 const Transactions: React.FC<Props> = (props) => {
+    const [ session, loading] = useSession()
+    if (loading) return null
+    if (!loading && !session) return <p>Access Denied</p>
+    console.log(session)
+    console.log(loading)
     return(
         <Layout>
             {

@@ -10,6 +10,10 @@ export default authHandler;
 
 const options = {
   providers: [
+    Providers.Discord({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET
+    }),
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
