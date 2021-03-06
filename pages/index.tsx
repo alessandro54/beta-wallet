@@ -12,7 +12,7 @@ export const getStaticProps: GetStaticProps = async () => {
     include: {
       author: {
         select: {
-          name: true,
+          firstName: true,
         },
       },
     },
