@@ -9,6 +9,10 @@ const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
 
 const options = {
+  pages: {
+    email: '/auth/magic',
+    credentials: '/auth/credentials'
+  },
   providers: [
     Providers.Discord({
       clientId: process.env.DISCORD_CLIENT_ID,
@@ -30,6 +34,12 @@ const options = {
       from: process.env.SMTP_FROM,
     }),
   ],
+  callbacks: {
+    session: async (session, user) => {
+      session.user = user
+      return Promise.resolve(session)
+    }
+  },
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
 };

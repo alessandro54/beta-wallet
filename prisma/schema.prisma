@@ -13,15 +13,16 @@ enum Role {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  firstName     String?
-  lastName      String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  role          Role      @default(Common)
-  wallet        Wallet?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
+  id             Int       @id @default(autoincrement())
+  firstName      String?
+  lastName       String?
+  email          String?   @unique
+  emailVerified  DateTime? @map("email_verified")
+  role           Role      @default(Common)
+  wallet         Wallet?
+  currentSession Session?
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
 
   @@map("users")
 }
@@ -34,26 +35,26 @@ enum Category {
 }
 
 model Transaction {
-  id            Int       @id @default(autoincrement())
-  description   String?
-  amount        Float
-  walletId      Int
-  wallet        Wallet    @relation(fields: [walletId], references: [id])
-  isCredit      Boolean   @default(false)
-  categories    Category[]
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @default(now()) @map("updated_at")
+  id          Int        @id @default(autoincrement())
+  description String?
+  amount      Float
+  walletId    Int
+  wallet      Wallet     @relation(fields: [walletId], references: [id])
+  isCredit    Boolean    @default(false)
+  categories  Category[]
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @default(now()) @map("updated_at")
 
   @@map("transactions")
 }
 
 model Wallet {
-  id            Int       @id @default(autoincrement())
-  ownerId       Int
-  owner         User      @relation(fields: [ownerId], references: [id])
-  transactions  Transaction[]
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @default(now()) @map("updated_at")
+  id           Int           @id @default(autoincrement())
+  ownerId      Int
+  owner        User          @relation(fields: [ownerId], references: [id])
+  transactions Transaction[]
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @default(now()) @map("updated_at")
 
   @@map("wallets")
 }
@@ -80,6 +81,7 @@ model Account {
 model Session {
   id           Int      @id @default(autoincrement())
   userId       Int      @map("user_id")
+  user         User     @relation(fields: [userId], references: [id])
   expires      DateTime
   sessionToken String   @unique @map("session_token")
   accessToken  String   @unique @map("access_token")
