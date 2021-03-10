@@ -1,19 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {useSession} from "next-auth/client";
 import {useRouter} from "next/router";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import Layout from "../components/Layout";
+import {updateUser} from "../requests/api/profile";
 
 const Profile = () => {
   const [session, loading] = useSession();
-  const [user,setUser] = useState({});
   const router = useRouter();
-  useEffect(() => {
-    if (session) setUser(session.user)
-  },[session])
   if (session){
-    const { firstName, lastName, role } = user
+    const { firstName, lastName, role } = session.user
     return (
       <Layout>
         <h1>Mi perfil</h1>
@@ -25,17 +22,11 @@ const Profile = () => {
               firstName: Yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid name').max(15).required('You must have a name'),
               lastName: Yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid name').max(20).required('Do you have a last name?')
             })}
-            onSubmit={(values, actions) => {
-              const updateUser = async () => {
-                return await fetch("/api/profile", {
-                  method: "PATCH",
-                  body: JSON.stringify(values)
+            onSubmit={(values) => {
+              if (firstName != values.firstName || lastName != values.lastName)
+                updateUser(values).then(r => {
+                  //TODO Handle user data change and change state
                 })
-              }
-              updateUser().then(r => {
-                const a = r.json()
-                console.log(a)
-              })
             }}>
             <Form>
               <div>
@@ -46,11 +37,11 @@ const Profile = () => {
                 <div className="flex flex-col justify-between items-center">
                   <div>
                     <span>Nombre: </span>
-                    <Field className="" name="firstName" placeholder = {firstName} type="text"/>
+                    <Field className="" name="firstName" type="text"/>
                   </div>
                   <div>
                     <span>Apellido: </span>
-                    <Field className="" name="lastName" placeholder = {lastName} type="text"/>
+                    <Field className="" name="lastName" type="text"/>
                   </div>
                 </div>
               </div>

@@ -7,33 +7,34 @@ import {getSession} from "next-auth/client";
 const handle = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({req})
   const {body, method} = req
-  switch (method) {
-    case "PATCH":
-      try {
-        const response = patchUser(session, body)
-        console.log(response)
-        res.status(200).json(response);
-      } catch (e) {
-
-      }
-
-      break;
-    case "DELETE":
-      res.status(200).json({hi:"hello"});
-      break;
-    default:
-      res.status(500).json({response: "Method not accepted"})
-  }
+  if (session)
+    switch (method) {
+      case "GET":
+        res.status(200).json(session.user);
+        break;
+      case "PATCH":
+        await patchUser(session, {...body})
+          .then(response => res.status(200).json(response))
+          .catch(error => res.status(500).json({error:error, message:"There was an error"}))
+        break;
+      case "DELETE":
+        res.status(200).json({hi:"hello"});
+        break;
+      default:
+        throw new Error("aaa")
+    }
+  else
+    res.status(401).json({response:"It is very likely that you do not have a session"})
 }
 
 const patchUser = async (session, body) => {
-  const {id} = session?.user
-  const updatedUser = JSON.parse(body)
+  const {id} = session.user
+  body.updatedAt = new Date().toISOString()//Add updated timestamp
   return await prisma.user.update({
     where: {
       id: id
     },
-    data: {...updatedUser}
+    data: {...body}
   })
 }
 

@@ -40,11 +40,10 @@ const DropDownOptions: React.FC<{session}> | null = ({session}) => {
 
 const Left: React.FC<{session,loading}> | null = ({session, loading}) => {
   if (session) {
-    const {firstName, lastName} = session.user
     return (
-      <div>
-        Welcome! {firstName} {lastName}
-      </div>
+      <Link href="/">
+        Welcome! to AppName
+      </Link>
     )
   }
   return (
