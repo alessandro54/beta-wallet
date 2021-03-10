@@ -10,8 +10,9 @@ export default authHandler;
 
 const options = {
   pages: {
-    email: '/auth/magic',
-    credentials: '/auth/credentials'
+    email: '/auth/email',
+    credentials: '/auth/credentials',
+    sigIn: '/auth/providers'
   },
   providers: [
     Providers.Discord({

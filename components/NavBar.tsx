@@ -3,8 +3,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/client";
 
-const DropDownOptions: React.FC | null = () => {
+const DropDownOptions: React.FC<{session}> | null = ({session}) => {
   const [open,setOpen] = useState(false)
+  const {firstName, lastName} = session.user
   const ref = useRef(null)
   const useOutsideClick = (ref) => {
     useEffect(() => {
@@ -24,6 +25,9 @@ const DropDownOptions: React.FC | null = () => {
       <button onClick={() => setOpen(!open)}>Options</button>
       { open ? (
         <div className="absolute top-50px w-40 bg-blue-400 border-1 rounded p-1 transform -translate-x-7 translate-y-7">
+          <div>
+            {firstName} {lastName}
+          </div>
           <Link href="/profile">
             My Profile
           </Link>
@@ -43,17 +47,31 @@ const Left: React.FC<{session,loading}> | null = ({session, loading}) => {
       </div>
     )
   }
-  return null
+  return (
+    <div>
+
+    </div>
+  )
 }
 
 const Right: React.FC<{session, loading}> | null = ({session, loading}) => {
-  if (session) {
+  if (!session)
     return (
       <div>
-        <DropDownOptions/>
+        <div>
+        </div>
+        <Link href="/auth/email">
+          Log in
+        </Link>
       </div>
     )
-  }
+
+  if (session)
+    return (
+      <div>
+        <DropDownOptions session={session}/>
+      </div>
+    )
   return null
 }
 const NavBar: React.FC = () => {
