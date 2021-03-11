@@ -24,13 +24,16 @@ const DropDownOptions: React.FC<{session}> | null = ({session}) => {
     <div className="relative" ref={ref}>
       <button onClick={() => setOpen(!open)}>Options</button>
       { open ? (
-        <div className="absolute top-50px w-40 bg-blue-400 border-1 rounded p-1 transform -translate-x-7 translate-y-7">
+        <div className="flex flex-col absolute top-50px w-40 bg-blue-400 border-1 rounded p-1 transform -translate-x-7 translate-y-7">
           <div>
             {firstName} {lastName}
           </div>
           <Link href="/profile">
             My Profile
           </Link>
+          <a onClick={() => signOut()}>
+            Log out
+          </a>
         </div>
       ): null
       }

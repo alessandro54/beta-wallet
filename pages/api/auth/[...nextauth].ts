@@ -3,6 +3,7 @@ import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import Adapters from "next-auth/adapters";
 import prisma from '../../../lib/prisma'
+import sendVerificationRequest from "../../../helper/mailer";
 
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
@@ -12,7 +13,7 @@ const options = {
   pages: {
     email: '/auth/email',
     credentials: '/auth/credentials',
-    sigIn: '/auth/providers'
+    providers: '/auth/providers'
   },
   providers: [
     Providers.Discord({
@@ -33,6 +34,7 @@ const options = {
         },
       },
       from: process.env.SMTP_FROM,
+      sendVerificationRequest: sendVerificationRequest
     }),
   ],
   callbacks: {

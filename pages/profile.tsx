@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useSession} from "next-auth/client";
 import {useRouter} from "next/router";
 import {ErrorMessage, Field, Form, Formik} from "formik";
@@ -8,9 +8,13 @@ import {updateUser} from "../requests/api/profile";
 
 const Profile = () => {
   const [session, loading] = useSession();
+  const [user, setUser] = useState(session?.user)
   const router = useRouter();
-  if (session){
-    const { firstName, lastName, role } = session.user
+  useEffect(() => {
+    setUser(session?.user)
+  },[loading])
+  if (session && user){
+    const { firstName, lastName, role } = user
     return (
       <Layout>
         <h1>Mi perfil</h1>
@@ -24,7 +28,8 @@ const Profile = () => {
             })}
             onSubmit={(values) => {
               if (firstName != values.firstName || lastName != values.lastName)
-                updateUser(values).then(r => {
+                updateUser(values).then(response => {
+                  setUser(response)
                   //TODO Handle user data change and change state
                 })
             }}>
@@ -53,7 +58,7 @@ const Profile = () => {
     )
   }
   if (!session && !loading) router.push('/auth/email')
-  return null;
+    return null;
 }
 
 export default Profile
