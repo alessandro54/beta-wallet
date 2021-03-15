@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import Layout from "../components/Layout";
-import {updateUser} from "../requests/api/profile";
+import {updateUser} from "../requests/client/profile";
 
 const Profile = () => {
   const [session, loading] = useSession();

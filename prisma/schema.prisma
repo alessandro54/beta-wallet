@@ -11,13 +11,13 @@ model User {
   id             Int       @id @default(autoincrement())
   email          String?   @unique
   emailVerified  DateTime? @map("email_verified")
-  createdAt      DateTime  @default(now()) @map("created_at")
-  updatedAt      DateTime  @updatedAt @map("updated_at")
   firstName      String?
   lastName       String?
   role           Role      @default(Common)
   currentSession Session?
   wallet         Wallet[]
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
 
   @@map("users")
 }
@@ -27,23 +27,23 @@ model Transaction {
   description String?
   amount      Float
   walletId    Int
-  createdAt   DateTime   @default(now()) @map("created_at")
-  updatedAt   DateTime   @default(now()) @map("updated_at")
   isCredit    Boolean    @default(false)
   wallet      Wallet     @relation(fields: [walletId], references: [id])
   Category    Category[]
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @default(now()) @map("updated_at")
 
   @@map("transactions")
 }
 
 model Wallet {
   id           Int           @id @default(autoincrement())
-  createdAt    DateTime      @default(now()) @map("created_at")
-  updatedAt    DateTime      @default(now()) @map("updated_at")
-  ownerId      Int
   name         String
+  ownerId      Int
   owner        User          @relation(fields: [ownerId], references: [id])
   transactions Transaction[]
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @default(now()) @map("updated_at")
 
   @@map("wallets")
 }
@@ -70,12 +70,12 @@ model Account {
 model Session {
   id           Int      @id @default(autoincrement())
   userId       Int      @unique @map("user_id")
+  user         User     @relation(fields: [userId], references: [id])
   expires      DateTime
   sessionToken String   @unique @map("session_token")
   accessToken  String   @unique @map("access_token")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @default(now()) @map("updated_at")
-  user         User     @relation(fields: [userId], references: [id])
 
   @@map("sessions")
 }
@@ -94,9 +94,11 @@ model VerificationRequest {
 model Category {
   id           Int           @id @default(autoincrement())
   name         String        @unique
+  transactions Transaction[]
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @default(now()) @map("updated_at")
-  transactions Transaction[]
+
+  @@map("categories")
 }
 
 enum Role {

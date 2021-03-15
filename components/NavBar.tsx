@@ -3,13 +3,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/client";
 
-const DropDownOptions: React.FC<{session}> | null = ({session}) => {
+const DropDownOptions: React.FC<{session: any}> | null = ({session}) => {
   const [open,setOpen] = useState(false)
   const {firstName, lastName} = session.user
   const ref = useRef(null)
-  const useOutsideClick = (ref) => {
+  const useOutsideClick = (ref: any) => {
     useEffect(() => {
-      const handleOutsideClick = (event) => {
+      const handleOutsideClick = (event: { target: any; }) => {
         if (ref.current && !ref.current.contains(event.target))
           setOpen(false)
       }
@@ -24,7 +24,7 @@ const DropDownOptions: React.FC<{session}> | null = ({session}) => {
     <div className="relative" ref={ref}>
       <button onClick={() => setOpen(!open)}>Options</button>
       { open ? (
-        <div className="flex flex-col absolute top-50px w-40 bg-blue-400 border-1 rounded p-1 transform -translate-x-7 translate-y-7">
+        <div className="flex flex-col absolute top-50px w-60 bg-blue-400 border-1 rounded p-1 transform -translate-x-40 translate-y-2">
           <div>
             {firstName} {lastName}
           </div>
@@ -41,7 +41,7 @@ const DropDownOptions: React.FC<{session}> | null = ({session}) => {
   )
 }
 
-const Left: React.FC<{session,loading}> | null = ({session, loading}) => {
+const Left: React.FC<{session: any,loading: any}> | null = ({session, loading}) => {
   if (session) {
     return (
       <Link href="/">
@@ -56,7 +56,7 @@ const Left: React.FC<{session,loading}> | null = ({session, loading}) => {
   )
 }
 
-const Right: React.FC<{session, loading}> | null = ({session, loading}) => {
+const Right: React.FC<{session: any, loading: any}> | null = ({session, loading}) => {
   if (!session)
     return (
       <div>
@@ -77,11 +77,9 @@ const Right: React.FC<{session, loading}> | null = ({session, loading}) => {
   return null
 }
 const NavBar: React.FC = () => {
-  const router = useRouter();
   const [session, loading] = useSession();
-  const isActive: (pathname: string) => boolean = (pathname) => router.pathname === pathname;
   return (
-    <nav className="h-1/12">
+    <nav className="h-nav xl:h-nav-xl">
       <div className="flex justify-between px-10 py-5">
         <Left session={session} loading={loading}/>
         <Right session={session} loading={loading}/>

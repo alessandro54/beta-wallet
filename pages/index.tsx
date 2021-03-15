@@ -1,17 +1,23 @@
-import React from "react";
+import React, {useContext} from "react";
 import Layout from "../components/Layout";
+import {AlertContext} from "../contexts/AlertProvider";
+import {useSession} from "next-auth/client";
+import {useRouter} from "next/router";
 
-
-const Blog = (props) => {
-  return (
-    <Layout>
-      <div className="page">
-        <h1>Public Feed</h1>
-        <main>
-        </main>
-      </div>
-    </Layout>
-  );
+const Index = () => {
+  const [state, dispatch] = useContext(AlertContext)
+  const [session, loading] = useSession();
+  if (!session) //Landing page
+    return (
+      <Layout>
+        <h1>Save your money</h1>
+      </Layout>
+    )
+  else {
+    const router = useRouter();
+    router.push('dashboard')
+    return null
+  }
 };
 
-export default Blog;
+export default Index;
