@@ -13,7 +13,7 @@ const Layout: React.FC<Props> = (props) => {
     <main className="w-screen h-screen">
       <Alerts alerts={state.alerts}/>
       <NavBar/>
-      <section className="bg-gray-400 h-main xl:h-main-xl">{props.children}</section>
+      <section className="bg-gradient-to-b from-blue-500 via-purple-500 to-purple-500 h-main xl:h-main-xl">{props.children}</section>
     </main>
   );
 }

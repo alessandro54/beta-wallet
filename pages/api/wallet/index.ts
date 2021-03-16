@@ -3,7 +3,7 @@ import {getSession} from "next-auth/client";
 import {getAllWallets} from "../../../requests/server/wallet";
 
 //GET /api/wallet           Return all wallets of the user
-//POST /api/profile
+//POST /api/wallet
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   const session = await getSession({req})
@@ -15,6 +15,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
           .then(response => res.status(200).json(response))
           .catch(error => res.status(500).json({error:error, message:"There was an error"}));break;
       case "POST":
+        //TODO Create Wallet
         break;
       default:
         res.status(500).json({response: "Method not permitted"})

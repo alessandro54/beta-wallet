@@ -9,15 +9,16 @@ const getAllWallets = async (session) => {
     where: {
       ownerId: id
     },
-    include: {
+    select:{
+      id: true,
+      name: true,
       transactions: {
-        select:{
+        select: {
           id: true,
           description: true,
           amount: true,
           createdAt: true
-        },
-        orderBy: {
+        },orderBy: {
           createdAt: 'desc'
         }
       }

@@ -8,15 +8,15 @@ const httpRequester = async (method, body) => {
 const updateUser = async (values) => {
   try {
     return await httpRequester("PATCH", values)
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
   }
 }
 const deleteUser = async (confirmationString) => {
   try {
     return await httpRequester("DELETE", {confirmation:confirmationString})
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
   }
 }
 
