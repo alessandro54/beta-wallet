@@ -4,10 +4,10 @@ module.exports = {
   theme: {
     extend: {
       height:{
-        nav:"12%",
-        main:"88%",
-        "nav-xl":"8%",
-        "main-xl":"92%"
+        nav:"12vh",
+        main:"88vh",
+        "nav-xl":"8vh",
+        "main-xl":"92vh"
       }
     }
   },
