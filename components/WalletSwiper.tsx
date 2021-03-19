@@ -12,11 +12,11 @@ const WalletSwiper: React.FC<{wallets:Array<Wallet>}> = ({wallets}) => {
   const handleModalExit = () => setModalVisibility(false)
   return (
     <>
-      <Swiper className="h-1/5 w-full flex justify-center items-center sm:hidden">
+      <Swiper className="h-1/5 w-full flex justify-center  items-center sm:hidden">
         {
           wallets.map((wallet, i) => (
               <SwiperSlide key = {i} className="flex justify-center items-center z-4">
-                <div className="w-full h-full bg-white m-5 rounded-xl flex justify-center items-center z-4" onClick={() => handleWalletClick(wallet)}>
+                <div className="w-11/12 h-full bg-white rounded-xl flex justify-center items-center z-4" onClick={() => handleWalletClick(wallet)}>
                   <h1>{wallet.name}</h1>
                 </div>
               </SwiperSlide>

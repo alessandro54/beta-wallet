@@ -5,6 +5,7 @@ import {useRouter} from "next/router";
 import {fetchWallets} from "../requests/client/wallet";
 import WalletSwiper from "../components/WalletSwiper";
 import {Wallet} from "../types";
+import RecentTransactions from "../components/RecentTransactions";
 
 const Dashboard = () => {
   const [session, loading] = useSession()
@@ -16,22 +17,15 @@ const Dashboard = () => {
   if (session && wallets.length != 0)
     return(
       <Layout>
-        <div className="w-full h-full">
-          <section className="h-1/5 flex justify-center items-center">
+        <section className="w-full h-full">
+          <div className="h-1/5 flex justify-center items-center">
             <div className="w-4/5 bg-white py-7 rounded-xl">
               Metas
             </div>
-          </section>
+          </div>
           <WalletSwiper wallets={wallets}/>
-          <section className="h-3/5">
-            <div className="flex flex-col justify-center items-center h-full">
-              <h1>Recent Transactions</h1>
-              <div className="bg-white w-11/12 h-5/6 rounded-xl shadow-2xl">
-
-              </div>
-            </div>
-          </section>
-        </div>
+          <RecentTransactions/>
+        </section>
       </Layout>
     )
   else {

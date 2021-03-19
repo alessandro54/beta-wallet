@@ -18,7 +18,8 @@ const getAllWallets = async (session) => {
           description: true,
           amount: true,
           createdAt: true
-        },orderBy: {
+        },
+        orderBy: {
           createdAt: 'desc'
         }
       }
