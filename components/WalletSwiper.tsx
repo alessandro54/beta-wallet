@@ -1,11 +1,13 @@
 import React, {useState} from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import {Wallet} from "../types";
+import {Swiper, SwiperSlide} from 'swiper/react';
+import {Wallet as WalletType} from "../types";
+import Wallet from "./Wallet.tsx"
+import Modal from "./Modal";
 
-const WalletSwiper: React.FC<{wallets:Array<Wallet>}> = ({wallets}) => {
+const WalletSwiper: React.FC<{wallets:Array<WalletType>}> = ({wallets}) => {
   const [modalVisibility, setModalVisibility] = useState<boolean>(false)
-  const [currentWallet, setCurrentWallet] = useState<Wallet>({id:0,name:"",transactions:[]})
-  const handleWalletClick = (wallet : Wallet) => {
+  const [currentWallet, setCurrentWallet] = useState<WalletType>({id:0,name:"",transactions:[]})
+  const handleWalletClick = (wallet : WalletType) => {
     setModalVisibility(true)
     setCurrentWallet(wallet)
   }
@@ -15,19 +17,16 @@ const WalletSwiper: React.FC<{wallets:Array<Wallet>}> = ({wallets}) => {
       <Swiper className="h-1/5 w-full flex justify-center  items-center sm:hidden">
         {
           wallets.map((wallet, i) => (
-              <SwiperSlide key = {i} className="flex justify-center items-center z-4">
-                <div className="w-11/12 h-full bg-white rounded-xl flex justify-center items-center z-4" onClick={() => handleWalletClick(wallet)}>
-                  <h1>{wallet.name}</h1>
-                </div>
-              </SwiperSlide>
+            <SwiperSlide key={i} className="flex justify-center items-center z-4">
+              <Wallet wallet={wallet} handleClick={handleWalletClick}/>
+            </SwiperSlide>
             )
           )
         }
       </Swiper>
-      <div className={`${modalVisibility ? "flex" : "hidden"} fixed justify-center items-center bottom-0 w-screen h-main z-20 bg-black bg-opacity-50`}
-           onClick={() => handleModalExit()}
-           style={{backdropFilter:"blur(10px)"}}>
-        <div className="w-4/5 h-4/5 bg-white rounded-xl flex flex-col">
+      <Modal handleExit = {handleModalExit} visibility={modalVisibility}>
+        <div className="w-4/5 h-4/5 bg-white rounded-xl flex flex-col z-25"
+             onClick={(e) => {e.stopPropagation()}}>
           <h1>{currentWallet.name}</h1>
           {
             currentWallet.transactions.length != 0 ? (
@@ -37,11 +36,11 @@ const WalletSwiper: React.FC<{wallets:Array<Wallet>}> = ({wallets}) => {
                 </div>
               ))
             ) : (
-              <h1>Parece que no hay transacciones</h1>
+              <h1>Parece que no hay transacciones aqui</h1>
             )
           }
         </div>
-      </div>
+      </Modal>
     </>
   )
 }

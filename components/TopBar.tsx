@@ -1,11 +1,13 @@
 import React, {useState, useEffect, useRef} from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/client";
+import { AiOutlineMenu } from "react-icons/ai"
+import useSWR from "swr";
 
 const DropDownOptions: React.FC<{session: any}> | null = ({session}) => {
   const [open,setOpen] = useState(false)
-  const {firstName, lastName} = session.user
+  const { data : user, error} = useSWR('/api/profile',{initialData: session.user, refreshInterval: 100})
+  const {firstName, lastName} = user
   const ref = useRef(null)
   const useOutsideClick = (ref: any) => {
     useEffect(() => {
@@ -21,10 +23,10 @@ const DropDownOptions: React.FC<{session: any}> | null = ({session}) => {
   }
   useOutsideClick(ref)
   return (
-    <div className="relative" ref={ref}>
-      <button onClick={() => setOpen(!open)}>Options</button>
+    <div className="relative flex flex-col justify-center items-center" ref={ref}>
+      <button onClick={() => setOpen(!open)} className=" text-2xl"><AiOutlineMenu/></button>
       { open ? (
-        <div className="flex flex-col absolute top-50px w-60 bg-blue-400 border-1 rounded p-1 transform -translate-x-40 translate-y-2">
+        <div className="flex flex-col absolute top-50px w-44 bg-blue-400 border-1 rounded p-1 transform -translate-x-14 translate-y-20">
           <div>
             {firstName} {lastName}
           </div>
@@ -45,7 +47,7 @@ const Left: React.FC<{session: any,loading: any}> | null = ({session, loading}) 
   if (session) {
     return (
       <Link href="/">
-        Welcome! to AppName
+        AppName
       </Link>
     )
   }
@@ -76,11 +78,11 @@ const Right: React.FC<{session: any, loading: any}> | null = ({session, loading}
     )
   return null
 }
-const NavBar: React.FC = () => {
+const TopBar: React.FC = () => {
   const [session, loading] = useSession();
   return (
-    <nav className="h-nav xl:h-nav-xl">
-      <div className="flex justify-between px-10 py-5">
+    <nav className="h-nav md:h-nav-xl">
+      <div className="w-full h-full flex justify-between items-center px-10">
         <Left session={session} loading={loading}/>
         <Right session={session} loading={loading}/>
       </div>
@@ -88,4 +90,4 @@ const NavBar: React.FC = () => {
   );
 };
 
-export default NavBar;
+export default TopBar;

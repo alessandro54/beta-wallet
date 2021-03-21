@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       height:{
-        nav:"12vh",
-        main:"88vh",
+        nav:"7vh",
+        main:"86vh",
         "nav-xl":"8vh",
         "main-xl":"92vh"
       }

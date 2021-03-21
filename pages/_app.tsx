@@ -1,5 +1,6 @@
 import { Provider } from "next-auth/client";
 import { AppProps } from "next/app";
+import { SWRConfig } from "swr"
 import '../styles/globals.css'
 import 'swiper/swiper.scss';
 import {AlertContextProvider} from "../contexts/AlertProvider";
@@ -7,9 +8,16 @@ import {AlertContextProvider} from "../contexts/AlertProvider";
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider session={pageProps.session}>
-      <AlertContextProvider>
-        <Component {...pageProps} />
-      </AlertContextProvider>
+      <SWRConfig
+        value={{
+          refreshInterval: 3000,
+          fetcher: (url : string, init?) => fetch(url, init).then(res => res.json())
+        }}
+      >
+        <AlertContextProvider>
+          <Component {...pageProps} />
+        </AlertContextProvider>
+      </SWRConfig>
     </Provider>
   );
 };

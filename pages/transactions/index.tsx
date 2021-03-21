@@ -33,8 +33,6 @@ const Transactions: React.FC<Props> = (props) => {
     const [ session, loading] = useSession()
     if (loading) return null
     if (!loading && !session) return <p>Access Denied</p>
-    console.log(session)
-    console.log(loading)
     return(
         <Layout>
             {

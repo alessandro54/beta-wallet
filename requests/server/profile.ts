@@ -1,4 +1,12 @@
 import prisma from "../../lib/prisma";
+const getUser = async (session) => {
+  const {id} = session.user
+  return await prisma.user.findUnique({
+    where: {
+      id:id
+    }
+  })
+}
 
 const patchUser = async (session, body) => {
   const {id} = session.user
@@ -15,4 +23,4 @@ const deleteUser = async (session, body) => {
 
 }
 
-export {patchUser, deleteUser}
+export {getUser, patchUser, deleteUser}

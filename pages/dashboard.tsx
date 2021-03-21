@@ -1,20 +1,29 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Layout from "../components/Layout";
-import {useSession} from "next-auth/client";
+import {getSession, useSession} from "next-auth/client";
 import {useRouter} from "next/router";
-import {fetchWallets} from "../requests/client/wallet";
+import {GetServerSideProps} from "next";
 import WalletSwiper from "../components/WalletSwiper";
-import {Wallet} from "../types";
+import {Transaction, Wallet} from "../types";
 import RecentTransactions from "../components/RecentTransactions";
+import {getWallets} from "../requests/server/wallet";
+import {getRecentTransactions} from "../requests/server/transaction";
 
-const Dashboard = () => {
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+  const session = await getSession({req})
+  const wallets = await getWallets(session)
+  const recentTransactions = await getRecentTransactions(session)
+  return {
+    props : JSON.parse(JSON.stringify({
+      wallets,
+      recentTransactions
+    }))
+  }
+};
+const Dashboard : React.FC<{wallets:Array<Wallet>, recentTransactions:Array<Transaction>}> = ({wallets, recentTransactions}) => {
   const [session, loading] = useSession()
-  const [wallets,setWallets] = useState<Array<Wallet>>([])
   const router = useRouter();
-  useEffect(() => {
-    fetchWallets().then(response => setWallets(response))
-  },[])
-  if (session && wallets.length != 0)
+  if (session)
     return(
       <Layout>
         <section className="w-full h-full">
@@ -24,7 +33,7 @@ const Dashboard = () => {
             </div>
           </div>
           <WalletSwiper wallets={wallets}/>
-          <RecentTransactions/>
+          <RecentTransactions transactions ={recentTransactions}/>
         </section>
       </Layout>
     )

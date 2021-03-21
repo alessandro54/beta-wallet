@@ -3,7 +3,8 @@ import prisma from "../../lib/prisma";
 const adminAllWallets = async () => {
   return await prisma.wallet.findMany()
 }
-const getAllWallets = async (session) => {
+
+const getWallets = async (session) => {
   const {id} = session.user
   return await prisma.wallet.findMany({
     where: {
@@ -26,13 +27,13 @@ const getAllWallets = async (session) => {
     }
   });
 }
-const createWallet = async (session, body) => {
+const createWallet = async (session, newWallet) => {
   const { id } = session
   return await prisma.wallet.create({
     data: {
-
+      ...newWallet
     }
   })
 }
 
-export { getAllWallets, adminAllWallets }
+export { getWallets, adminAllWallets }
