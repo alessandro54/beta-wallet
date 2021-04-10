@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {AlertContext} from "../contexts/AlertProvider";
+import {AlertContext} from "../context/AlertProvider";
 
 const Alert = ({id,type, message}) => {
   const [isHovered, setIsHovered] = useState(false )

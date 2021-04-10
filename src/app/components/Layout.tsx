@@ -1,6 +1,6 @@
 import React, {ReactNode, useContext} from "react";
 import TopBar from "./TopBar";
-import {AlertContext} from "../contexts/AlertProvider";
+import {AlertContext} from "../context/AlertProvider";
 import Alerts from "./Alerts";
 import LowerBar from "./LowerBar";
 

@@ -2,9 +2,9 @@ import React from "react";
 import { GetStaticProps } from "next";
 import { serialize } from "superjson";
 import { useSession, getSession } from "next-auth/client"
-import prisma from "../../lib/prisma";
-import Layout from "../../components/Layout";
-import Transaction, { TransactionProps } from "../../components/Transaction";
+import prisma from "../../db/prisma";
+import Layout from "../../app/components/Layout";
+import Transaction, { TransactionProps } from "../../app/components/Transaction";
 
 export const getStaticProps: GetStaticProps = async () => {
     const response = await prisma.transaction.findMany(

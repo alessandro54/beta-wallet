@@ -3,10 +3,10 @@ import {getSession, useSession} from "next-auth/client";
 import {useRouter} from "next/router";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
-import Layout from "../components/Layout";
-import {updateUser} from "../requests/client/profile";
+import Layout from "../app/components/Layout";
+import {updateUser} from "../api/client/profile";
 import {GetServerSideProps} from "next";
-import {getUser} from "../requests/server/profile";
+import {getUser} from "../api/server/profile";
 import useSWR from "swr";
 
 export const getServerSideProps: GetServerSideProps = async ({req, res}) => {

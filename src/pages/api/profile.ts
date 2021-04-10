@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from "next";
 import {getSession} from "next-auth/client";
-import {patchUser} from "../../requests/server/profile";
+import {patchUser} from "../../api/server/profile";
 
 //GET /api/profile          Return current session
 //PATCH /api/profile        Optional fields in body: firstName, lastName #Required on client-side

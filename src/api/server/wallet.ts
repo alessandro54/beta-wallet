@@ -1,4 +1,4 @@
-import prisma from "../../lib/prisma";
+import prisma from "../../db/prisma";
 
 const adminAllWallets = async () => {
   return await prisma.wallet.findMany()

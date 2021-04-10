@@ -1,4 +1,4 @@
-import prisma from "../../lib/prisma";
+import prisma from "../../db/prisma";
 
 const getRecentTransactions = async (session) => {
   const {id} = session.user

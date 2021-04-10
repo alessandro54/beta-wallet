@@ -1,4 +1,4 @@
-import prisma from "../../lib/prisma";
+import prisma from "../../db/prisma";
 const getUser = async (session) => {
   const {id} = session.user
   return await prisma.user.findUnique({

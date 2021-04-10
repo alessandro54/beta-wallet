@@ -1,7 +1,7 @@
 import React from "react";
-import {Transaction} from "../lib/types";
+import {Transaction} from "../../types/types";
 
-const RecentTransactions: React<{transactions:Array<Transaction>}> = ({transactions}) => {
+const RecentTransactions: React.FC<{transactions:Array<Transaction>}> = ({transactions}) => {
   if (transactions.length != 0)
     return (
       <div className="h-3/5">

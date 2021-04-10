@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from "next";
 import {getSession} from "next-auth/client";
-import {getWallets} from "../../../requests/server/wallet";
+import {getWallets} from "../../../api/server/wallet";
 
 //GET /api/wallets           Return all wallets of the user
 //POST /api/wallets

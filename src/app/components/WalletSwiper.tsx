@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Wallet as WalletType} from "../lib/types";
-import Wallet from "./Wallet.tsx"
+import {Wallet as WalletType} from "../../types/types";
+import Wallet from "./Wallet"
 import Modal from "./Modal";
 
 const WalletSwiper: React.FC<{wallets:Array<WalletType>}> = ({wallets}) => {

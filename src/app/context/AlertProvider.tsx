@@ -1,12 +1,15 @@
 import React, {useContext, useReducer, useState} from "react"
 import { v4 as uuidv4 } from "uuid";
-const AlertContext = React.createContext()
 
-const initialState = [
-    /*{id:uuidv4(), type:"success", message:"All good"},
+const initialState : Array<any> = [
+  /*
     {id:uuidv4(), type:"success", message:"All good"},
-    {id:uuidv4(), type: "danger", message: "There was an error"}*/
+    {id:uuidv4(), type:"success", message:"All good"},
+    {id:uuidv4(), type: "danger", message: "There was an error"}
+   */
 ]
+
+const AlertContext = React.createContext(initialState)
 
 const reducer = ({alerts}, {type, payload}) => {
     switch (type) {
@@ -37,7 +40,7 @@ const init : any = (initialAlerts) => {
 
 const AlertContextProvider =  ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState, init)
-    return(
+    return (
       <AlertContext.Provider value={[state, dispatch]}>
           {children}
       </AlertContext.Provider>
