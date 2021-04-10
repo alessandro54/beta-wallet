@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Wallet as WalletType} from "../types";
+import {Wallet as WalletType} from "../lib/types";
 import Wallet from "./Wallet.tsx"
 import Modal from "./Modal";
 
@@ -14,7 +14,7 @@ const WalletSwiper: React.FC<{wallets:Array<WalletType>}> = ({wallets}) => {
   const handleModalExit = () => setModalVisibility(false)
   return (
     <>
-      <Swiper className="h-1/5 w-full flex justify-center  items-center sm:hidden">
+      <Swiper className="h-1/5 h- w-full flex justify-center  items-center sm:hidden ">
         {
           wallets.map((wallet, i) => (
             <SwiperSlide key={i} className="flex justify-center items-center z-4">

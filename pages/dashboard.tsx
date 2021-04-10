@@ -4,7 +4,7 @@ import {getSession, useSession} from "next-auth/client";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
 import WalletSwiper from "../components/WalletSwiper";
-import {Transaction, Wallet} from "../types";
+import {Transaction, Wallet} from "../lib/types";
 import RecentTransactions from "../components/RecentTransactions";
 import {getWallets} from "../requests/server/wallet";
 import {getRecentTransactions} from "../requests/server/transaction";

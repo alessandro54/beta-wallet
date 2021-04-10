@@ -17,7 +17,6 @@ const Layout: React.FC<Props> = (props) => {
       <section className="h-main md:h-main-xl bg-gradient-to-b from-blue-500 via-purple-500 to-purple-500">
         {props.children}
       </section>
-      <LowerBar/>
     </main>
   );
 }

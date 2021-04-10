@@ -2,8 +2,8 @@ import type {NextApiRequest, NextApiResponse} from "next";
 import {getSession} from "next-auth/client";
 import {getWallets} from "../../../requests/server/wallet";
 
-//GET /api/wallet           Return all wallets of the user
-//POST /api/wallet
+//GET /api/wallets           Return all wallets of the user
+//POST /api/wallets
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   const session = await getSession({req})

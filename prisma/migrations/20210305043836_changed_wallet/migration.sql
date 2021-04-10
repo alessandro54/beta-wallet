@@ -2,7 +2,7 @@
   Warnings:
 
   - You are about to drop the column `image` on the `users` table. All the data in the column will be lost.
-  - You are about to drop the column `balance` on the `wallet` table. All the data in the column will be lost.
+  - You are about to drop the column `balance` on the `wallets` table. All the data in the column will be lost.
 
 */
 -- CreateEnum

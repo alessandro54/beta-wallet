@@ -1,7 +1,7 @@
 /*
   Warnings:
 
-  - You are about to drop the column `categories` on the `wallet` table. All the data in the column will be lost.
+  - You are about to drop the column `categories` on the `wallets` table. All the data in the column will be lost.
 
 */
 -- AlterTable

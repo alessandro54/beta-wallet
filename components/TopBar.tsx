@@ -33,7 +33,7 @@ const DropDownOptions: React.FC<{session: any}> | null = ({session}) => {
           <Link href="/profile">
             My Profile
           </Link>
-          <a onClick={() => signOut()}>
+          <a onClick={() => signOut()} className="">
             Log out
           </a>
         </div>
