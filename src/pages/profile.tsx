@@ -3,22 +3,32 @@ import {getSession, useSession} from "next-auth/client";
 import {useRouter} from "next/router";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
-import Layout from "../app/components/Layout";
+import Layout from "../components/Layout";
 import {updateUser} from "../api/client/profile";
 import {GetServerSideProps} from "next";
 import {getUser} from "../api/server/profile";
 import useSWR from "swr";
+import {User, UserParams} from "../types/user";
 
 export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
   const session = await getSession({req})
-  const user = await getUser(session)
-  return {
-    props: {
-      user: JSON.parse(JSON.stringify(user))
+  if (session) {
+    const user = await getUser(session)
+    return {
+      props: {
+        user: JSON.parse(JSON.stringify(user))
+      }
     }
   }
+  else
+    return {
+      props: {
+        user: null
+      }
+    }
 };
-const InputField = ({label, name ="text"}) => {
+
+const InputField: React.FC<{label: string, name: string}> = ({label, name ="text"}) => {
   return (
     <div>
       <span className="text-sm">{label}</span>
@@ -26,14 +36,15 @@ const InputField = ({label, name ="text"}) => {
     </div>
   )
 }
-const Profile = (props) => {
+const Profile: React.FC<{user:User}> = (props) => {
   const [session, loading] = useSession();
-  const [user, setUser] = useState(session?.user)
+  const [user, setUser] = useState<User>(props.user)
   const router = useRouter();
-  const { data, error} = useSWR('/api/profile', {initialData: props.user, refreshInterval: 0})
+  const { data , error} = useSWR<any>('/api/profile', {initialData: props.user, refreshInterval: 0})
   useEffect(() => {
-    setUser(data)
+    return setUser(data);
   },[loading])
+
   if (session){
     const { firstName, lastName, role } = data
     return (
@@ -50,7 +61,7 @@ const Profile = (props) => {
                 firstName: Yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid name').max(15).required('You must have a name'),
                 lastName: Yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid name').max(20).required('Do you have a last name?')
               })}
-              onSubmit={(values) => {
+              onSubmit={(values: UserParams) => {
                 if (firstName != values.firstName || lastName != values.lastName)
                   updateUser(values).then(response => {
                     console.log(response)

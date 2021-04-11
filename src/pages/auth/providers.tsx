@@ -1,6 +1,14 @@
-import { providers, signIn } from 'next-auth/client'
+import {providers, signIn} from 'next-auth/client'
 
-export default function Providers({ providers }) {
+interface Provider {
+    id: string,
+    name: string,
+    type: string,
+    signinUrl:string,
+    callbackUrl: string;
+}
+
+export default function Providers({ providers }: {providers:Array<Provider>}) {
     return (
       <div>
           {

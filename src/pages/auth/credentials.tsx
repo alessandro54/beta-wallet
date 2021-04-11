@@ -1,6 +1,6 @@
-import { csrfToken } from 'next-auth/client'
+import {csrfToken} from 'next-auth/client'
 
-export default function SignIn({ csrfToken }) {
+export default function SignIn({ csrfToken }: any) {
     return (
         <form method='post' action='/api/auth/callback/credentials'>
             <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
@@ -17,7 +17,7 @@ export default function SignIn({ csrfToken }) {
     )
 }
 
-SignIn.getInitialProps = async (context) => {
+SignIn.getInitialProps = async (context: any) => {
     return {
         csrfToken: await csrfToken(context)
     }

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Wallet as WalletType} from "../../types/types";
+import {Wallet as WalletType} from "../types/types";
 import Wallet from "./Wallet"
 import Modal from "./Modal";
 

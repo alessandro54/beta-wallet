@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/client";
-import { AiOutlineMenu } from "react-icons/ai"
+import {signOut, useSession} from "next-auth/client";
+import {AiOutlineMenu} from "react-icons/ai"
 import useSWR from "swr";
 
 const DropDownOptions: React.FC<{session: any}> | null = ({session}) => {

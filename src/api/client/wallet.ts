@@ -1,3 +1,5 @@
+import {Wallet} from "../../types/types";
+
 const fetchWallets = async () => {
   try {
     return (await fetch('/api/wallet')).json()
@@ -6,7 +8,7 @@ const fetchWallets = async () => {
   }
 }
 
-const createWallet = async (newWallet) => {
+const createWallet = async (newWallet: Wallet) => {
   try {
     return await fetch('/api/wallet',{
       method: "POST",

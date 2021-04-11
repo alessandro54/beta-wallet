@@ -1,3 +1,4 @@
+// @ts-nocheck
 import nodemailer from "nodemailer"
 
 const sendVerificationRequest = ({ identifier: email, url, token, baseUrl, provider }) => {
@@ -8,7 +9,14 @@ const sendVerificationRequest = ({ identifier: email, url, token, baseUrl, provi
     console.log(url)
     console.log(email)
     nodemailer
-      .createTransport(server)
+      .createTransport({
+        host: "smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: "e41ba8be007bba",
+          pass: "efe49537323269"
+        }
+      })
       .sendMail({
         to: email,
         from,

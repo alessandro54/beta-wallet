@@ -1,16 +1,16 @@
 import React from "react";
-import Layout from "../app/components/Layout";
+import Layout from "../components/Layout";
 import {getSession, useSession} from "next-auth/client";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
-import WalletSwiper from "../app/components/WalletSwiper";
+import WalletSwiper from "../components/WalletSwiper";
 import {Transaction, Wallet} from "../types/types";
-import RecentTransactions from "../app/components/RecentTransactions";
+import RecentTransactions from "../components/RecentTransactions";
 import {getWallets} from "../api/server/wallet";
 import {getRecentTransactions} from "../api/server/transaction";
 
 export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
-  const session = await getSession({req});
+  let session = await getSession({req});
   let wallets;
   let recentTransactions
   if (session) {

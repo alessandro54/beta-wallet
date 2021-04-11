@@ -1,6 +1,7 @@
-import { csrfToken } from 'next-auth/client'
+import {csrfToken} from 'next-auth/client'
+import React, {ReactElement} from "react";
 
-export default function SignIn({ csrfToken }) {
+export default function SignIn({ csrfToken }: any)   : ReactElement{
     return (
       <section className="w-scree h-screen flex justify-center items-center">
         <div className="bg-white p-20">
@@ -18,7 +19,7 @@ export default function SignIn({ csrfToken }) {
       </section>
     )
 }
-SignIn.getInitialProps = async (context) => {
+SignIn.getInitialProps = async (context: any) => {
     return {
         csrfToken: await csrfToken(context)
     }

@@ -1,9 +1,9 @@
-import { Provider } from "next-auth/client";
-import { AppProps } from "next/app";
-import { SWRConfig } from "swr"
+import {Provider} from "next-auth/client";
+import {AppProps} from "next/app";
+import {SWRConfig} from "swr"
 import '../assets/styles/globals.css'
 import 'swiper/swiper.scss';
-import {AlertContextProvider} from "../app/context/AlertProvider";
+import {AlertContextProvider} from "../context/AlertProvider";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

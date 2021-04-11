@@ -1,7 +1,8 @@
 import React, {useContext, useState} from "react";
 import {AlertContext} from "../context/AlertProvider";
+import type {Alert as AlertType} from "../types/alert";
 
-const Alert = ({id,type, message}) => {
+const Alert: React.FC<AlertType> = ({id,type, message}) => {
   const [isHovered, setIsHovered] = useState(false )
   const [state, dispatch] = useContext(AlertContext)
   let styles = ""
@@ -12,11 +13,10 @@ const Alert = ({id,type, message}) => {
       styles = "bg-yellow-200";break;
     case "danger":
       styles = "bg-red-200";break;
-    default:
   }
   return(
     <div className={`${styles} w-4/5 xl:w-1/5 text-center py-1 px-2 my-2 relative rounded transition pointer-events-auto`}
-         onClick={() => dispatch({type:"DELETE_ALERT", payload : id})}
+         onClick={() => dispatch({type:"remove/alert", payload : id})}
          onMouseEnter={() => setIsHovered(true)}
          onMouseLeave={() => setIsHovered(false)}
     >
@@ -24,7 +24,7 @@ const Alert = ({id,type, message}) => {
       {
         isHovered ? (
           <div className="w-full h-full absolute top-0 left-0 text-3xl cursor-pointer"
-               style={{backdropFilter:"blur(8px"}}
+               style={{backdropFilter :"blur(8px"}}
           >
             &times;
           </div>) : null
@@ -33,7 +33,7 @@ const Alert = ({id,type, message}) => {
   )
 }
 
-const Alerts = ({alerts}) => {
+const Alerts: React.FC<{alerts:Array<AlertType>}> = ({alerts}) => {
   if (alerts) {
     return (
       <div className="fixed top-20 w-screen flex flex-col justify-center items-center pointer-events-none">

@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
-import Layout from "../app/components/Layout";
-import {AlertContext} from "../app/context/AlertProvider";
+import Layout from "../components/Layout";
+import {AlertContext} from "../context/AlertProvider";
 import {useSession} from "next-auth/client";
 import {useRouter} from "next/router";
 

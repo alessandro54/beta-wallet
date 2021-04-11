@@ -1,6 +1,7 @@
 import prisma from "../../db/prisma";
+import {Session} from "../../types/user";
 
-const getRecentTransactions = async (session) => {
+const getRecentTransactions = async (session: Session) => {
   const {id} = session.user
   return await prisma.transaction.findMany({
     where: {

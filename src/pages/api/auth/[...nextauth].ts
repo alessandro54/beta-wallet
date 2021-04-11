@@ -1,10 +1,10 @@
-import { NextApiHandler } from "next";
+// @ts-nocheck
+import {NextApiHandler} from "next";
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import Adapters from "next-auth/adapters";
 import prisma from '../../../db/prisma'
 import sendVerificationRequest from "../../../mailers/mailer";
-
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
@@ -38,7 +38,7 @@ const options = {
     }),
   ],
   callbacks: {
-    session: async (session, user) => {
+    session: async (session: any, user: any) => {
       session.user = user
       return Promise.resolve(session)
     }

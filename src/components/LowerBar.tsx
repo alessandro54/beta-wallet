@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import {RiHomeLine, RiLineChartLine} from "react-icons/ri";
-import {CgProfile, CgMathPlus} from "react-icons/cg"
+import {CgMathPlus, CgProfile} from "react-icons/cg"
 import {IoWalletOutline} from "react-icons/io5"
+
 const LowerBar = () => {
   return (
     <section className="w-full h-nav md:hidden">

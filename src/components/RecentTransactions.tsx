@@ -1,5 +1,5 @@
 import React from "react";
-import {Transaction} from "../../types/types";
+import {Transaction} from "../types/types";
 
 const RecentTransactions: React.FC<{transactions:Array<Transaction>}> = ({transactions}) => {
   if (transactions.length != 0)
